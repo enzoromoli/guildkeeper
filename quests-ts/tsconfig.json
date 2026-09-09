@@ -18,5 +18,10 @@
     "outDir": "dist",
     "rootDir": "."
   },
-  "include": ["src", "tests", "vitest.config.ts"]
+  "include": [
+    "src",
+    "tests",
+    "vitest.config.ts",
+    "node_modules/vitest/globals.d.ts"
+  ]
 }

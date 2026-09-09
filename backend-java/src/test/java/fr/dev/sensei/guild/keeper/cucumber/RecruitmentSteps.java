@@ -78,4 +78,9 @@ public class RecruitmentSteps {
     public void le_recrutement_est_rejete_car_le_nom_est_vide() {
         assertThat(caughtException).isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Alors("le recrutement est rejeté car le nom est identique à un membre déjà présent")
+    public void le_recrutement_est_rejete_car_le_nom_est_deja_present() {
+        assertThat(caughtException).isInstanceOf(DuplicateMemberException.class);
+    }
 }

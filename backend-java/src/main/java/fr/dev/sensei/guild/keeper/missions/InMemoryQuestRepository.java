@@ -25,4 +25,11 @@ public class InMemoryQuestRepository implements QuestRepository {
     public void save(Quest quest) {
         questsById.put(quest.id(), quest);
     }
+
+    @Override
+    public Optional<Quest> findByName(String titre) {
+        return questsById.values().stream()
+            .filter(member -> member.title().equals(titre))
+            .findFirst();
+    }
 }

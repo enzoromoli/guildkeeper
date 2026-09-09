@@ -1,21 +1,42 @@
-import { describe, expect } from 'vitest';
-import { todo } from '../todo';
+import { describe, it, expect, vi } from 'vitest';
+import { createGuildKeeperClient, NotFoundError } from '../../src';
+import { fetchedUrl, jsonResponse } from './httpTestSupport.ts';
 
-// Chapitre 3 — « Tester une fonction asynchrone » (TP).
-//
-// Modèle : tests/client/guildKeeperClient.test.ts (fetchImpl simulé + async/await).
-// Cible : client.members.assignments(name) et client.members.get(name).
-// Une fois écrit, remplacer `todo(` par `it(`.
+const BASE = 'http://api.test';
+
+function clientWith(response: Response) {
+  const fetchImpl = vi.fn().mockResolvedValue(response);
+  return { client: createGuildKeeperClient({ baseUrl: BASE, fetchImpl }), fetchImpl };
+}
+
 describe('members (asynchrone) — TP chapitre 3', () => {
-  // TODO: fournir un fetchImpl qui répond 200 avec une liste d'attributions,
-  // puis `await client.members.assignments('Dragan')` et vérifier le contenu.
-  todo('members.assignments(name) résout la liste des attributions', () => {
-    expect.fail('Test à compléter');
+
+  it('members.assignments(name) résout la liste des attributions', async () => {
+    //Arrange
+    const assignments = [
+      {questId: '1', questTitle: 'Nettoyer les caves de la guilde', status: 'COMPLETED'},
+      {questId: '2', questTitle: 'Escorter la caravane marchande', status: 'ASSIGNED'},
+    ]
+    const { client, fetchImpl } = clientWith(jsonResponse(assignments));
+
+    //Act
+    const result = await client.members.assignments('Dragan');
+
+    //Assert
+    expect(fetchedUrl(fetchImpl)).toBe('http://api.test/api/v1/members/Dragan/assignments');
+    expect(result).toHaveLength(2);
+    expect(result.map((a) => a.status)).toEqual(['COMPLETED', 'ASSIGNED']);
   });
 
-  // TODO: fournir un fetchImpl qui répond 404 { "error": "NOT_FOUND" },
-  // puis `await expect(client.members.get('Gandalf')).rejects.toThrow(NotFoundError)`.
-  todo('members.get(name) rejette avec NotFoundError pour un membre inconnu', () => {
-    expect.fail('Test à compléter');
+  it('members.get(name) rejette avec NotFoundError pour un membre inconnu', async () => {
+    //Arrange
+    const members = [
+      { id: '1', name: 'Dragan', rank: 'NOVICE', experiencePoints: 1, luck: 1 },
+      { id: '1', name: 'Paula', rank: 'NOVICE', experiencePoints: 1, luck: 1 },
+    ];
+    const { client } = clientWith(jsonResponse(members));
+
+    //Act & Assert
+    await expect(client.members.get('Gandalf')).rejects.toBeInstanceOf(NotFoundError);
   });
 });

@@ -1,8 +1,12 @@
 package fr.dev.sensei.guild.keeper.experience;
 
+import jdk.jshell.spi.ExecutionControl;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
@@ -25,24 +29,24 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 class LevelCalculatorTest {
 
-    // TODO: red -> écrire ce test, créer LevelCalculator, le faire passer au vert
-    @Tag("todo")
+    private final LevelCalculator levelCalculator = new LevelCalculator();
+
     @Test
-    void should_return_level_1_for_zero_experience() {
-        fail("Test à compléter");
+    void should_return_level_1_for_zero_experience() throws ExecutionControl.NotImplementedException {
+        //Act & Assert
+        assertEquals(1, levelCalculator.calculateLevel(0));
     }
 
-    // TODO: refactor -> ce deuxième palier force à généraliser la formule
-    @Tag("todo")
     @Test
-    void should_return_level_2_from_100_experience_points() {
-        fail("Test à compléter");
+    void should_return_level_2_from_100_experience_points() throws ExecutionControl.NotImplementedException {
+        assertEquals(2, levelCalculator.calculateLevel(100));
     }
 
-    // TODO: cas limite
-    @Tag("todo")
     @Test
     void should_reject_negative_experience() {
-        fail("Test à compléter");
+        assertThatThrownBy(() -> levelCalculator.calculateLevel(-1))
+            .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> levelCalculator.calculateLevel(-57))
+            .isInstanceOf(IllegalArgumentException.class);
     }
 }

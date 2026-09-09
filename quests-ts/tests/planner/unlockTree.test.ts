@@ -4,8 +4,9 @@ import {
   findQuestById,
   findQuestByTitle,
   isQuestUnlocked,
-} from '../../src/planner/unlockTree';
-import type { QuestDto } from '../../src/client/dto';
+  NotFoundError,
+} from '../../src';
+import type { QuestDto } from '../../src';
 import { todo } from '../todo';
 import questsFixture from '../../fixtures/quests.json';
 
@@ -18,9 +19,17 @@ describe('findQuestById / findQuestByTitle', () => {
     expect(findQuestByTitle(quests, 'Terrasser le dragon des cimes')?.id).toBe('3');
   });
 
-  // TODO: Chapitre 3 — « Atelier pratique - Consolider les tests Vitest du module quêtes »
-  todo('returns undefined when the list is empty', () => {
-    expect.fail('Test à compléter');
+  it('returns undefined when the list is empty', () => {
+    //Arrange
+    const quests = [] as QuestDto[];
+
+    //Act
+    const result1 = findQuestById(quests, '0');
+    const result2 = findQuestByTitle(quests, 'xxx');
+
+    //Assert
+    expect(result1).toBeUndefined();
+    expect(result2).toBeUndefined();
   });
 });
 
@@ -33,9 +42,8 @@ describe('isQuestUnlocked', () => {
     expect(isQuestUnlocked(caravan!, ['1'])).toBe(true);
   });
 
-  // TODO: Chapitre 3 — « Atelier pratique - Consolider les tests Vitest du module quêtes »
-  todo('locks a quest whose prerequisite has not been completed', () => {
-    expect.fail('Test à compléter');
+  it('locks a quest whose prerequisite has not been completed', () => {
+    expect(isQuestUnlocked(caravan!, [])).toBe(false);
   });
 });
 

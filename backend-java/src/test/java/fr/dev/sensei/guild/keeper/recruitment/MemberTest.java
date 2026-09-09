@@ -1,9 +1,9 @@
 package fr.dev.sensei.guild.keeper.recruitment;
 
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Atelier du chapitre 2 — test d'effet de bord.
@@ -21,17 +21,24 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 class MemberTest {
 
-    // TODO: Chapitre 2 — « Atelier pratique - Consolider la suite de tests GuildKeeper » (effet de bord)
-    @Tag("todo")
     @Test
     void should_increase_experience_points_when_experience_is_added() {
-        fail("Test à compléter");
+        //Arrange
+        Member member = new Member("0", "Test", MemberRank.NOVICE, 0, 2);
+
+        //Act
+        member.addExperience(60);
+
+        //Assert
+        assertEquals(60, member.experiencePoints());
     }
 
-    // TODO: Chapitre 2 — « Atelier pratique - Consolider la suite de tests GuildKeeper » (effet de bord)
-    @Tag("todo")
     @Test
     void should_reject_a_non_positive_experience_gain() {
-        fail("Test à compléter");
+        //Arrange
+        Member member = new Member("0", "Test", MemberRank.NOVICE, 0, 2);
+
+        //Act & Assert
+        assertThatThrownBy(() -> member.addExperience(-1)).isInstanceOf(IllegalArgumentException.class);
     }
 }

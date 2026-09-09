@@ -52,12 +52,16 @@ describe('calculateExperienceReward', () => {
     expect(reward).toBe(550);
   });
 
-  // TODO: Chapitre 3 — « Atelier pratique - Consolider les tests Vitest du module quêtes »
-  todo.each<[MemberRank, number]>([
-    // TODO: Chapitre 3 — compléter les couples (rang, expérience attendue) pour APPRENTICE, ELITE, GUILD_MASTER
-    ['APPRENTICE', 0],
-  ])('mirrors the Java experience formula for rank %s', () => {
-    expect.fail('Test à compléter');
+  it.each<[MemberRank, number]>([
+    ['APPRENTICE', 100],
+    ['ELITE', 120],
+    ['GUILD_MASTER', 550]
+  ])('mirrors the Java experience formula for rank %s', (rank, expectedReward) => {
+    //Act
+    const reward = calculateExperienceReward({id: '1', title: 'Dragon slayer', difficulty: 'EASY', baseExperienceReward: 100, baseLootValue: 40, prerequisiteQuestId: null }, rank);
+
+    //Assert
+    expect(reward).toBe(expectedReward);
   });
 });
 

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
-import { createGuildKeeperClient } from '../../src/client/guildKeeperClient';
-import { NotFoundError } from '../../src/client/errors';
+import { createGuildKeeperClient } from '../../src';
+import { NotFoundError } from '../../src';
 import { jsonResponse, fetchedUrl } from './httpTestSupport';
 import questsFixture from '../../fixtures/quests.json';
 import questFixture from '../../fixtures/quest.json';

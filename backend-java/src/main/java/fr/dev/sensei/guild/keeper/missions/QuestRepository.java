@@ -11,4 +11,6 @@ public interface QuestRepository {
     List<Quest> findAll();
 
     void save(Quest quest);
+
+    Optional<Quest> findByName(String titre);
 }

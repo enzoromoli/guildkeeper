@@ -23,3 +23,7 @@ Fonctionnalité: Recrutement de membres de la guilde
     Scénario: Rejet d'un candidat au nom vide
       Quand j'essaie de recruter le candidat ""
       Alors le recrutement est rejeté car le nom est vide
+
+    Scénario: Recrutement réussi d'un autre candidat
+      Soit "Attila" déjà membre de la guilde
+      Quand je recrute le candidat "Dragan"

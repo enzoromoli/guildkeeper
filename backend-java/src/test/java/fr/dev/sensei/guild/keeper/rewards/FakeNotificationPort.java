@@ -40,6 +40,6 @@ public class FakeNotificationPort implements NotificationPort {
         if (sentNotifications.isEmpty()) {
             throw new IllegalStateException("Aucune notification n'a ete envoyee.");
         }
-        return sentNotifications.get(sentNotifications.size() - 1);
+        return sentNotifications.getLast();
     }
 }
