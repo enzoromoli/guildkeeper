@@ -83,4 +83,5 @@ via un manager qui lui sera testé.
 
 ### Problèmes rencontrés et solutions
 
-En général pas trop de problème autre que pour le livrable 3 avec les tests 5 et 6 inutiles dans ces conditions.
+- Problème : Livrable 3 avec les tests 5 et 6 inutiles dans ces conditions.
+  - Solution: Le test 4 teste aussi que le % accepté par 'distributeDividends' ne dépasse pas 100%.
