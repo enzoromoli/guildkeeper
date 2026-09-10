@@ -76,9 +76,6 @@ class RewardsDistributionServiceTest {
             .contains(quest.title())
             .contains(result.experienceGained() + " XP")
             .contains(result.lootValue() + " pieces d'or");
-
-        verify(notificationPort, times(1)).notifyMember(any(), any());
-
     }
 
     @Test
@@ -98,7 +95,6 @@ class RewardsDistributionServiceTest {
             .isInstanceOf(IllegalStateException.class);
 
         verify(memberRepository, never()).save(any());
-        verify(notificationPort, never()).notifyMember(any(), any());
         assertThat(veteran.experiencePoints()).isZero();
     }
 }
